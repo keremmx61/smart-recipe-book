@@ -1,0 +1,49 @@
+﻿services:
+  sqlserver:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    container_name: sqlserver
+    environment:
+      SA_PASSWORD: HelloWorld61.
+      ACCEPT_EULA: Y
+    ports:
+      - "1433:1433"
+    networks:
+      - backend
+    volumes:
+      - sqlserverdata:/var/opt/mssql
+
+  userapi:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: usermanagementapi
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+      ConnectionStrings__DefaultConnection: Server=sqlserver;Database=UserDb;User Id=sa;Password=HelloWorld61.;TrustServerCertificate=True
+      ConnectionStrings__AdventureWorksConnection: Server=sqlserver;Database=AdventureWorks2022;User Id=sa;Password=HelloWorld61.;TrustServerCertificate=True;MultipleActiveResultSets=true
+      Redis__Configuration: redis:6379
+      Redis__InstanceName: UserManagementApi
+    ports:
+      - "5000:80"
+    depends_on:
+      - sqlserver
+      - redis
+    networks:
+      - backend
+    volumes:
+      - logs:/app/logs
+
+  redis:
+    image: "redis:alpine"
+    container_name: redis
+    ports:
+      - "6379:6379"
+    networks:
+      - backend
+
+networks:
+  backend:
+
+volumes:
+  sqlserverdata:
+  logs:
