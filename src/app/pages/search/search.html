@@ -1,0 +1,29 @@
+<div class="search-container">
+  <h1>Search for a Recipe</h1>
+  <div class="search-box">
+    <input 
+      type="text" 
+      [(ngModel)]="searchTerm" 
+      (keyup.enter)="performSearch()"
+      placeholder="e.g., Chicken">
+    <button (click)="performSearch()">Search</button>
+  </div>
+</div>
+
+<div class="results-container">
+  <div *ngIf="hasSearched && !searchResults.length" class="no-results">
+    <p>No recipes found for "{{ searchTerm }}". Please try another one.</p>
+  </div>
+
+  <a *ngFor="let meal of searchResults" 
+     class="recipe-card"
+     [routerLink]="['/recipe', meal.idMeal]">
+    
+      <img [src]="meal.strMealThumb" [alt]="meal.strMeal">
+      <div class="card-content">
+        <h3>{{ meal.strMeal }}</h3>
+        <p>{{ meal.strCategory }} | {{ meal.strArea }}</p>
+      </div>
+  
+  </a>
+  </div>

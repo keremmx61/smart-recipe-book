@@ -1,0 +1,30 @@
+<div *ngIf="isLoading" class="loading">
+  <p>Loading recipe...</p>
+</div>
+
+<div *ngIf="!isLoading && recipeDetails" class="detail-container">
+  
+  <a routerLink="/search" class="back-link">&larr; Back to Search</a>
+  
+  <h1>{{ recipeDetails.strMeal }}</h1>
+  <p class="tags">{{ recipeDetails.strCategory }} | {{ recipeDetails.strArea }}</p>
+
+  <img [src]="recipeDetails.strMealThumb" [alt]="recipeDetails.strMeal">
+
+  <div class="content-wrapper">
+    <div class="ingredients">
+      <h2>Ingredients</h2>
+      <ul>
+        <li *ngFor="let item of ingredients">
+          <strong>{{ item.name }}</strong> - {{ item.measure }}
+        </li>
+      </ul>
+    </div>
+  
+    <div class="instructions">
+      <h2>Instructions</h2>
+      <p>{{ recipeDetails.strInstructions }}</p>
+    </div>
+  </div>
+
+</div>
