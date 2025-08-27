@@ -1,1 +1,27 @@
-<p>favorites works!</p>
+<div class="favorites-container">
+  <h1>My Favorite Recipes</h1>
+
+  <div *ngIf="isLoading" class="loading">
+    <p>Loading your favorites...</p>
+  </div>
+
+  <div *ngIf="!isLoading">
+    <div *ngIf="favoriteRecipes.length === 0" class="no-results">
+      <p>You haven't added any recipes to your favorites yet.</p>
+      <a routerLink="/search">Find some recipes!</a>
+    </div>
+
+    <div class="results-container">
+      <a *ngFor="let meal of favoriteRecipes" 
+         class="recipe-card"
+         [routerLink]="['/recipe', meal.idMeal]">
+        
+        <img [src]="meal.strMealThumb" [alt]="meal.strMeal">
+        <div class="card-content">
+          <h3>{{ meal.strMeal }}</h3>
+          <p>{{ meal.strCategory }} | {{ meal.strArea }}</p>
+        </div>
+      </a>
+    </div>
+  </div>
+</div>

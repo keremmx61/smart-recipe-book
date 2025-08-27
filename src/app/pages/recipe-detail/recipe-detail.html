@@ -7,6 +7,14 @@
   <a routerLink="/search" class="back-link">&larr; Back to Search</a>
   
   <h1>{{ recipeDetails.strMeal }}</h1>
+
+  <div class="actions">
+    <button (click)="toggleFavorite()" [class.favorite]="isFavorite">
+      <span *ngIf="!isFavorite">🤍 Add to Favorites</span>
+      <span *ngIf="isFavorite">❤️ Remove from Favorites</span>
+    </button>
+  </div>
+  
   <p class="tags">{{ recipeDetails.strCategory }} | {{ recipeDetails.strArea }}</p>
 
   <img [src]="recipeDetails.strMealThumb" [alt]="recipeDetails.strMeal">
