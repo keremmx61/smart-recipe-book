@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { RouterLink } from '@angular/router'; // Eklendi
 import { RecipeService } from '../../services/recipe';
 
 @Component({
@@ -8,12 +9,12 @@ import { RecipeService } from '../../services/recipe';
   standalone: true,
   imports: [
     CommonModule, // *ngIf, *ngFor gibi direktifler için
-    FormsModule   // [(ngModel)] kullanabilmek için
+    FormsModule,  // [(ngModel)] kullanabilmek için
+    RouterLink    // routerLink için eklendi
   ],
-  templateUrl: './search.html', // Dosya yolu ".component" olmadan düzeltildi
-  styleUrl: './search.scss'     // Dosya yolu ".component" olmadan düzeltildi
+  templateUrl: './search.html',
+  styleUrls: ['./search.scss'] // Düzeltildi
 })
-// Sınıf adı "Search" olarak düzeltildi
 export class Search {
   public searchTerm: string = '';
   public searchResults: any[] = [];
